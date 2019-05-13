@@ -84,14 +84,12 @@ class StudentThread implements Runnable {
 
 	public void run() {
 		try {
-
 			for (int i = 0; i < 2; i++) {
 				synchronized (ClientMain.studentList) {
-
 					while (ClientMain.studentList.size() % 3 != mode) {
 						ClientMain.studentList.wait();
 					}
-					IStudent<Number> addStudent = NewStudent.addStudent(student);
+					IStudent<Number> addStudent = StudentProcess.addStudent(student);
 					ClientMain.studentList.add(addStudent);
 					ClientMain.studentList.notifyAll();
 				}
@@ -107,7 +105,7 @@ class StudentThread implements Runnable {
 	}
 }
 
-class NewStudent {
+class StudentProcess {
 	public static IStudent<Number> addStudent(IStudent<Number> student) {
 		try {
 			@SuppressWarnings("unchecked")

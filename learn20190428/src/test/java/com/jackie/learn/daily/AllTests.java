@@ -16,4 +16,5 @@ import org.junit.runners.Suite.SuiteClasses;
 	MyClassLoaderTest.class
 })
 public class AllTests {
+
 }

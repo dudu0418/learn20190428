@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(value =ElementType.TYPE)
+@Target(value = {ElementType.TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MyAnnotation {
 	public static enum ProcessType {JUMP, EXECUTE};

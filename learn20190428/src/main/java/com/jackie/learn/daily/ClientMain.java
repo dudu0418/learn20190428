@@ -14,7 +14,6 @@ import java.util.concurrent.Executors;
 
 import com.jackie.learn.daily.MyAnnotation.ProcessType;
 
-@MyAnnotation(process = ProcessType.EXECUTE)
 public class ClientMain {
 
 	public static IStudent<Number> student;

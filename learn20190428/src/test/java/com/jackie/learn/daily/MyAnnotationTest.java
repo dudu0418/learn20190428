@@ -1,16 +1,15 @@
 package com.jackie.learn.daily;
 
-import java.text.Annotation;
-
-import com.jackie.learn.daily.MyAnnotation;
-import com.jackie.learn.daily.MyAnnotation.ProcessType;
-
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.jackie.learn.daily.MyAnnotation.ProcessType;
+
+@MyAnnotation(process=ProcessType.JUMP)
 public class MyAnnotationTest {
 
 	@BeforeClass
@@ -31,7 +30,14 @@ public class MyAnnotationTest {
 
 	@Test
 	public void MyAnnotationTest() {
-		MyAnnotation.class.isAnnotation();
+		IStudent<Integer> student = new Student(1,"zhangsan","123456");
+		student.setId(1234);
+		Assert.assertNotEquals(new Integer(1234), student.getId());
 	}
-
+	
+	@Test
+	public void ServerMainAnnotationTest() {
+		MyAnnotation annotation = ServerMain.class.getAnnotation(MyAnnotation.class);
+		System.out.println(annotation.process());
+	}
 }

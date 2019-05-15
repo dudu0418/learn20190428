@@ -10,7 +10,7 @@ public class MyClassLoader extends ClassLoader {
 	@Override
 	public Class<?> findClass(String name) throws ClassNotFoundException {
 		String file = this.getResource("").getFile();
-		file = file + "/" + name.replace(".", "/") + ".class";
+		file = file.replace("test-classes", "classes") + "/" + name.replace(".", "/") + ".class";
 		System.out.println(file);
 		try {
 			fileInputStream = new FileInputStream(file);

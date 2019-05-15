@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import com.jackie.learn.daily.IStudent;
 import com.jackie.learn.daily.MyAnnotation;
+import com.jackie.learn.daily.MyAnnotation.ProcessType;
 
 import org.junit.After;
 import org.junit.AfterClass;

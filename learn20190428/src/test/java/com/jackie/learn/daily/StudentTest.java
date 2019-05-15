@@ -23,7 +23,7 @@ public class StudentTest {
 	IStudent<Integer> student;
 	String observerMessage;
 	@Rule
-	public ExpectedException thrown=ExpectedException.none();
+	public ExpectedException thrown = ExpectedException.none();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -44,32 +44,31 @@ public class StudentTest {
 		observerMessage = "";
 	}
 
-	//测试泛型是否继承于Number
+	// 测试泛型是否继承于Number
 	@Test
-	public void testSetId() throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
+	public void testSetId() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+			NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
 		Class<?> forName = Class.forName("com.jackie.learn.daily.Student");
 
 		@SuppressWarnings("unused")
-		Constructor<?> constructor = forName.getConstructor(Number.class,String.class,String.class);
+		Constructor<?> constructor = forName.getConstructor(Number.class, String.class, String.class);
 	}
 
-	//测试观察者模式
+	// 测试观察者模式
 	@Test
 	public void testGetPassword() {
-		student.addObserver(
-				new Observer() {
-					public void update(Observable o, Object arg) {
-						//被触发，对全局变量赋值
-						observerMessage = "observer invoked";
-					}
-				}
-		);
-		
+		student.addObserver(new Observer() {
+			public void update(Observable o, Object arg) {
+				// 被触发，对全局变量赋值
+				observerMessage = "observer invoked";
+			}
+		});
+
 		student.getPassword();
 		assertEquals("observer invoked", observerMessage);
 	}
 
-	//测试是否能够抛出预期的异常
+	// 测试是否能够抛出预期的异常
 	@Test
 	public void testSetPassword() {
 		thrown.expect(MyRuntimeException.class);
@@ -77,31 +76,32 @@ public class StudentTest {
 		student.setPassword("123");
 	}
 
-	//测试toString函数
+	// 测试toString函数
 	@Test
 	public void testToString() {
-		student = new Student<Integer>(1,"name1","password1");
+		student = new Student<Integer>(1, "name1", "password1");
 		String str = student.toString();
-		assertEquals("\nStudent [id=1, name=name1, password=password1, teacher=Teacher [id=0, name=null, password=null, subject=null]]", str);
+		assertEquals(
+				"\nStudent [id=1, name=name1, password=password1, teacher=Teacher [id=0, name=null, password=null, subject=null]]",
+				str);
 	}
 
-	//测试深克隆
+	// 测试深克隆
 	@Test
-	public void testDeepClone() throws CloneNotSupportedException
-	{
+	public void testDeepClone() throws CloneNotSupportedException {
 		@SuppressWarnings("unchecked")
 		IStudent<Number> clone = (IStudent<Number>) student.clone();
-		System.out.println(clone.getTeacher().hashCode()+ "-" + student.getTeacher().hashCode());
+		System.out.println(clone.getTeacher().hashCode() + "-" + student.getTeacher().hashCode());
 		Assert.assertNotEquals(clone.getTeacher().hashCode(), student.getTeacher().hashCode());
 	}
-	
-	//测试策略模式
+
+	// 测试策略模式
 	@Test
-	public void testDescStrategy(){
+	public void testDescStrategy() {
 		ArrayList<IStudent<Number>> arrayList = new ArrayList<IStudent<Number>>();
-		arrayList.add( new Student<Number>(2, "2", "2"));
-		arrayList.add( new Student<Number>(3, "3", "3"));
-		arrayList.add( new Student<Number>(1, "1", "1"));
+		arrayList.add(new Student<Number>(2, "2", "2"));
+		arrayList.add(new Student<Number>(3, "3", "3"));
+		arrayList.add(new Student<Number>(1, "1", "1"));
 		System.out.println(arrayList);
 		Collections.sort(arrayList, new DescStrategy());
 		System.out.println(arrayList);
@@ -110,23 +110,18 @@ public class StudentTest {
 		for (int i = 0; i < 3; i++) {
 			ids = ids + arrayList.get(i).getId() + ",";
 		}
-		Assert.assertEquals("3,2,1,", ids );
+		Assert.assertEquals("3,2,1,", ids);
 	}
 
-	//测试Teacher对象中的toString方法
+	// 测试Teacher对象中的toString方法
 	@Test
 	public void teacherToStringTest() {
-		student = new Student<Integer>(1,"name1","password1");
+		student = new Student<Integer>(1, "name1", "password1");
 		student.getTeacher().setId(2);
 		student.getTeacher().setName("teacher_li");
 		student.getTeacher().setPassword("12345678");
 		student.getTeacher().setSubject("English");
 		String str = student.getTeacher().toString();
 		assertEquals("Teacher [id=2, name=teacher_li, password=12345678, subject=English]", str);
-	}
-	
-	@Test
-	public void passwordFacadeTest() throws NoSuchMethodException, SecurityException{
-		IPasswordFacade.class.getMethod("setPassword", String.class);
 	}
 }

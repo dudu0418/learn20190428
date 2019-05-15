@@ -7,8 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ 
 	IStudentTest.class, 
-	StudentTest.class, 
-	INameFacadeTest.class,
+	StudentTest.class,
 	ClientMainTest.class,
 	ServerMainTest.class, 
 	MyProxyTest.class, 

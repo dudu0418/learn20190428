@@ -107,9 +107,6 @@ class StudentThread implements Runnable {
 class StudentProcess {
 	public static IStudent<Number> addStudent(IStudent<Number> student) {
 		try {
-			
-			// TODO Auto-generated method stub
-
 			@SuppressWarnings("unchecked")
 			IStudent<Number> s = (IStudent<Number>) student.clone();
 			int id = ClientMain.studentList.size() + 1;

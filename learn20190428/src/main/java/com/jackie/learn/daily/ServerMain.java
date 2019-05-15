@@ -12,6 +12,9 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Set;
 
+import com.jackie.learn.daily.MyAnnotation.ProcessType;
+
+@MyAnnotation(process = ProcessType.JUMP)
 public class ServerMain {
 
 	private static ServerSocket serverSocket;

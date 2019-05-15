@@ -1,5 +1,5 @@
 package com.jackie.learn.daily;
-
+	
 import com.jackie.learn.daily.MyRuntimeException;
 
 import org.junit.After;

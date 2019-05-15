@@ -1,5 +1,5 @@
 package com.jackie.learn.daily;
-
+	
 import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Method;

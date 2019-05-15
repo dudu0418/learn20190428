@@ -35,6 +35,9 @@ public class MyAnnotationTest {
 		Assert.assertNotEquals(new Integer(1234), student.getId());
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	public void ServerMainAnnotationTest() {
 		MyAnnotation annotation = ServerMain.class.getAnnotation(MyAnnotation.class);

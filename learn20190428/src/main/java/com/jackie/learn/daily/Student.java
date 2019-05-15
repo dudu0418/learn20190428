@@ -11,7 +11,7 @@ import com.jackie.learn.daily.MyAnnotation.ProcessType;
  *
  * @param <T>
  */
-public class Student<T extends Number> extends Observable implements Cloneable, Serializable, IStudent<T>, IPasswordFacade {
+public class Student<T extends Number> extends Observable implements Cloneable, Serializable, IStudent<T>, INameFacade {
 
 	private static final long serialVersionUID = 1L;
 	T id;
@@ -20,6 +20,8 @@ public class Student<T extends Number> extends Observable implements Cloneable, 
 	Teacher teacher = new Teacher();
 
 	public Student() {
+		//todo ---
+		
 	}
 
 	public Student(T id, String name, String password) {
@@ -46,10 +48,9 @@ public class Student<T extends Number> extends Observable implements Cloneable, 
 //			String methodName = ste.getMethodName();
 			MyAnnotation annotation = forName.getAnnotation(MyAnnotation.class);
 			if ( annotation != null && ProcessType.JUMP == annotation.process()) {
-				System.out.println("跳过");
+				System.out.println("自定义注解触发");
 			}
 			else {
-				System.out.println("执行");
 				this.id = id;
 			}
 		} catch (ClassNotFoundException e) {
@@ -100,7 +101,7 @@ public class Student<T extends Number> extends Observable implements Cloneable, 
 
 }
 
-class Teacher implements Cloneable, Serializable,IPasswordFacade {
+class Teacher implements Cloneable, Serializable,INameFacade {
 	private static final long serialVersionUID = 1L;
 	int id;
 	String name;
@@ -120,6 +121,7 @@ class Teacher implements Cloneable, Serializable,IPasswordFacade {
 	}
 
 	public void setName(String name) {
+		System.out.println("门面模式触发了");
 		this.name = name;
 	}
 
@@ -153,7 +155,17 @@ class Teacher implements Cloneable, Serializable,IPasswordFacade {
 class DescStrategy implements Comparator<IStudent<Number>> {
 
 	public int compare(IStudent<Number> o1, IStudent<Number> o2) {
+		// TODO 测试22
 		return (int) (o2.getId().doubleValue() - o1.getId().doubleValue());
 	}
 
+}
+
+// TODO 测阿受到法律框架水电费垃圾
+class Aaa implements Runnable{
+
+	public void run() {
+		
+	}
+	
 }

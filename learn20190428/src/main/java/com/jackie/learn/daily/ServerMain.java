@@ -10,6 +10,8 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import com.jackie.learn.daily.MyAnnotation.ProcessType;
@@ -18,6 +20,7 @@ import com.jackie.learn.daily.MyAnnotation.ProcessType;
 public class ServerMain {
 
 	private static ServerSocket serverSocket;
+	public static List<IStudent<Number>> studentList = new ArrayList<IStudent<Number>>();
 
 	public static void main(String[] args) throws Exception {
 //		serverSocket = new ServerSocket(5000);
@@ -28,11 +31,32 @@ public class ServerMain {
 //		Object readObject = objectInputStream.readObject();
 //		System.out.println(readObject);
 		
-		new ReceiveInfoThread().start();
+		ReceiveInfoThread receiveInfoThread = new ReceiveInfoThread();
+		receiveInfoThread.start();
+		receiveInfoThread.join();
+		parseStudent(studentList.get(0));
 	}
 	
 	public static void parseStudent( IStudent<Number> student) {
+
+		//门面模式触发了
+		INameFacade nameFacade = (INameFacade) student;
+		nameFacade.setName("李四");
+		INameFacade nameFacade2 = (INameFacade) student.getTeacher();
+		nameFacade2.setName("王五");
+
+		//测试观察者模式
+		student.addObserver(new MyConsole());
+		student.addObserver(new MyLog());
+		student.getPassword();
 		
+		//代理模式触发了
+		IStudent<Number> factory = (IStudent<Number>) MyProxy.factory(student);
+		factory.setPassword("123");
+		
+		//自定义注解触发
+		student.setId(999);
+		System.out.println(student.getId());
 	}
 }
 
@@ -66,7 +90,9 @@ class ReceiveInfoThread extends Thread {
 							byteBuffer.flip();
 						}
 						ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray()));
-						System.out.println( objectInputStream.readObject());
+						ServerMain.studentList = (List<IStudent<Number>>) objectInputStream.readObject();
+						System.out.println( ServerMain.studentList ); 
+						return;
 					}
 				}
 				selectedKeys.clear();

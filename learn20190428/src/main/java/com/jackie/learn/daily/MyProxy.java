@@ -22,12 +22,15 @@ public class MyProxy implements InvocationHandler {
 
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-		System.out.println("before proxy");
-		Object invoke = method.invoke(object, args);
-		System.out.println("after proxy");
-		return invoke;
+		System.out.println("代理模式触发了");
+		try {
+			Object invoke = method.invoke(object, args);
+			return invoke;
+		} catch (Exception e) {
+			System.out.println(e.getCause().getMessage());
+		}
+		return null;
 	}
-
 }
 
 class MyConsole implements Observer {

@@ -50,11 +50,9 @@ public class ServerMainTest {
 		System.setOut(printStream);
 		boolean contains1 = testResult.contains("门面模式");
 		boolean contains2 = testResult.contains("观察者模式");
-		boolean contains3 = testResult.contains("before proxy");
-		boolean contains5 = testResult.contains("密码太简单");
-		boolean contains6 = testResult.contains("after proxy");
-		boolean contains7 = testResult.contains("JUMP");
-		if (!(contains1 && contains2 && contains3 && contains5 && contains6 && contains7)) {
+		boolean contains3 = testResult.contains("密码太简单");
+		boolean contains4 = testResult.contains("注解触发");
+		if (!(contains1 && contains2 && contains3 && contains4)) {
 			Assert.fail("not contain in");
 		}
 	}

@@ -33,13 +33,6 @@ public class IStudentTest {
 	public void tearDown() throws Exception {
 	}
 	
-	@Test
-	public void annotationTest() throws NoSuchMethodException, SecurityException{
-		Method method = IStudent.class.getMethod("setId", Number.class);
-		MyAnnotation annotation = method.getAnnotation(MyAnnotation.class);
-		assertEquals("JUMP", annotation.process().toString());
-	}
-	
 	//测试是否有clone方法
 	@Test
 	public void cloneMethodTest() throws NoSuchMethodException, SecurityException{

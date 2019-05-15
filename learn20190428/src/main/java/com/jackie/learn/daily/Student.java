@@ -11,7 +11,7 @@ import com.jackie.learn.daily.MyAnnotation.ProcessType;
  *
  * @param <T>
  */
-public class Student<T extends Number> extends Observable implements Cloneable, Serializable, IStudent<T> {
+public class Student<T extends Number> extends Observable implements Cloneable, Serializable, IStudent<T>, IPasswordFacade {
 
 	private static final long serialVersionUID = 1L;
 	T id;
@@ -23,7 +23,6 @@ public class Student<T extends Number> extends Observable implements Cloneable, 
 	}
 
 	public Student(T id, String name, String password) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.password = password;
@@ -36,21 +35,22 @@ public class Student<T extends Number> extends Observable implements Cloneable, 
 	public void setId(T id) {
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		StackTraceElement ste = null;
-		for (StackTraceElement stackTraceElement : stackTrace) {
-			if (stackTraceElement.getClassName().equals("com.jackie.learn.daily.Student")) {
-				ste = stackTraceElement;
+		for (int i = 0; i < stackTrace.length; i++) {
+			if( stackTrace[i].getClassName().equals("com.jackie.learn.daily.Student")) {
+				ste = stackTrace[i+1];
+				break;
 			}
 		}
 		try {
 			Class<?> forName = Class.forName(ste.getClassName());
 //			String methodName = ste.getMethodName();
 			MyAnnotation annotation = forName.getAnnotation(MyAnnotation.class);
-			if (ProcessType.JUMP == annotation.process()) {
+			if ( annotation != null && ProcessType.JUMP == annotation.process()) {
 				System.out.println("跳过");
-				this.id = id;
 			}
 			else {
 				System.out.println("执行");
+				this.id = id;
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -100,7 +100,7 @@ public class Student<T extends Number> extends Observable implements Cloneable, 
 
 }
 
-class Teacher implements Cloneable, Serializable {
+class Teacher implements Cloneable, Serializable,IPasswordFacade {
 	private static final long serialVersionUID = 1L;
 	int id;
 	String name;

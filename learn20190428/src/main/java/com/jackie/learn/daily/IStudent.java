@@ -2,8 +2,6 @@ package com.jackie.learn.daily;
 
 import java.util.Observer;
 
-import com.jackie.learn.daily.MyAnnotation.ProcessType;
-
 public interface IStudent<T extends Number> {
 
 	T getId();

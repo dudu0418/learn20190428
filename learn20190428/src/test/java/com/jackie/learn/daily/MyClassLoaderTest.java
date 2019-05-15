@@ -6,7 +6,7 @@ import org.junit.Test;
 public class MyClassLoaderTest {
 
 	@Test
-	public void testFindClassString() {
+	public void testFindClassString() throws ClassNotFoundException {
 		MyClassLoader myClassLoader = new MyClassLoader(); 
 		Class<?> findClass = myClassLoader.findClass("com.jackie.learn.daily.Student");
 		if( findClass == null ) {
